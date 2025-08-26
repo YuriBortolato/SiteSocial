@@ -1,38 +1,39 @@
 <?php
-  include '../include/header.php'; 
-  ?>
-<?php
+include '../include/header.php'; 
 include '../config/db.php';
 
+session_start();
+
 if(isset($_POST['email']) || isset($_POST['senha'])) {
+
     if(strlen($_POST['email']) == 0){
-        echo "preencha seu email";
+        echo "Preencha seu email";
     } else if(strlen($_POST['senha']) == 0){
-        echo "preencha sua senha";
+        echo "Preencha sua senha";
     } else {
-        $email = $conn->real_escape_string($_POST['email']);
-        $senha = $conn->real_escape_string($_POST['senha']);
+        $email = $conn->real_escape_string($_POST['email']); // Protege contra SQL Injection
+        $senha = $_POST['senha']; // Não precisa escapar para password_verify
 
-        $sql_code = "SELECT * FROM usuarios WHERE email ='$email' 
-        AND senha = '$senha' ";
+        // Busca o usuário pelo email
+        $sql_code = "SELECT * FROM usuarios WHERE email ='$email'";
+        $sql_query = $conn->query($sql_code) or die("Falha na execução do código SQL: " . $conn->error);
 
-        $sql_query = $conn->query($sql_code) or
-         die("Falha na execução do codigo SQL: " . $$conn->error);
+        if($sql_query->num_rows == 1 ) {
+            $usuario = $sql_query->fetch_assoc(); // pega os dados do usuário
 
-        $quantidade = $sql_query->num_rows;
-        
-        if($quantidade == 1 ) {
-            $ususrio = $sql_query->fetch_assoc();
-            
-            if(!isset($_SESSION)) {
-                session_start();
+            // Verifica a senha usando password_verify
+            if(password_verify($senha, $usuario['senha'])) {
+
+                $_SESSION['id'] = $usuario['id'];
+                $_SESSION['nome'] = $usuario['nome'];
+
+                header("Location: ../feed/painel.php"); // Redireciona para a página do feed
+                exit;
+            } else {
+                echo "<div class='text-danger'>Senha incorreta!</div>";
             }
-            $_SESSION['id'] = $ususrio['id'];
-            $_SESSION['nome'] = $ususrio['nome'];
-
-           header("Location: ../feed/painel.php");
-        }else {
-            echo "Falha ao logar! E-mail ou senha incorreta";
+        } else {
+            echo "<div class='text-danger'>E-mail não encontrado!</div>";
         }
     }
 }
@@ -46,20 +47,20 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
     <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
-    <h1>Acesse sua conta</h1>
+<div class="container mt-4">
+    <h2>Acesse sua conta</h2>
     <form action="" method="POST">
-    <p>
-        <label>E-mail</label>
-        <input type="text" name="email">
-        
-    </p>
-    <p>
-        <label>Senha</label>
-        <input type="password" name="senha">
-    </p>
-    <p>
-        <button type="submit">Entrar</button>
-    </p> 
-</form>       
+        <div class="mb-3">
+            <label for="email" class="form-label">E-mail</label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Digite seu e-mail" required>
+        </div>
+        <div class="mb-3">
+            <label for="senha" class="form-label">Senha</label>
+            <input type="password" name="senha" id="senha" class="form-control" placeholder="Digite sua senha" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Entrar</button>
+        <a href="../cadastro/cadastro.php" class="btn btn-secondary">Cadastrar</a>
+    </form>
+</div>
 </body>
 </html>
