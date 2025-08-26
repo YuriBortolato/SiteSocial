@@ -12,7 +12,7 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
         echo "Preencha sua senha";
     } else {
         $email = $conn->real_escape_string($_POST['email']); // Protege contra SQL Injection
-        $senha = $_POST['senha']; // Não precisa escapar para password_verify
+        $senha = $_POST['senha']; // Senha em texto puro
 
         // Busca o usuário pelo email
         $sql_code = "SELECT * FROM usuarios WHERE email ='$email'";
@@ -21,8 +21,8 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
         if($sql_query->num_rows == 1 ) {
             $usuario = $sql_query->fetch_assoc(); // pega os dados do usuário
 
-            // Verifica a senha usando password_verify
-            if(password_verify($senha, $usuario['senha'])) {
+            
+             if($senha === $usuario['senha']) { // Verifica a senha
 
                 $_SESSION['id'] = $usuario['id'];
                 $_SESSION['nome'] = $usuario['nome'];

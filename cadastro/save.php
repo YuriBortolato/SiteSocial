@@ -6,7 +6,9 @@
     $nome     = $_POST['nome'];
     $usuario  = $_POST['usuario'];
     $email    = $_POST['email'];
-    $senha    = password_hash($_POST['senha'], PASSWORD_DEFAULT);  // Hash da senha
+    $senha    = $_POST['senha'];
+    
+    //$senha    = password_hash($_POST['senha'], PASSWORD_DEFAULT);  // Hash da senha
 
      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         header("Location: cadastro.php?error=email&msg=E-mail inválido!");

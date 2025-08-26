@@ -16,7 +16,7 @@
         // Redireciona após 10 segundos
         setTimeout(function() {
             window.location.href = '../login/index.php';
-        }, 10000); // 10000 milissegundos = 10 segundos
+        }, 5000); // 5000 milissegundos = 5 segundos
     </script>
 <?php endif; ?>
     <form action="save.php" method="POST" id="formPessoa">
