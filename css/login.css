@@ -1,0 +1,9 @@
+a {
+    text-decoration: none; /* Remove o sublinhado */
+    color: #007bff; /* Cor do link */
+}
+
+a:hover {
+    text-decoration: underline; /* Sublinha ao passar o mouse */
+    cursor: pointer;
+}
