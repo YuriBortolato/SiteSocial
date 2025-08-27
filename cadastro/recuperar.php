@@ -33,9 +33,11 @@ if (isset($_POST['email'])) {
     <form action="" method="POST">
         <div class="mb-3">
             <label for="email" class="form-label">E-mail</label>
-            <input type="email" name="email" id="email" class="form-control" placeholder="Digite seu e-mail" required>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Digite o e-mail da conta" required>
         </div>
         <button type="submit" class="btn btn-primary">Verificar E-mail</button>
+        <a href="../login/index.php" class="btn btn-secondary">Cancelar</a>
+
     </form>
 </div>
 </body>
