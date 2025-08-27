@@ -44,9 +44,10 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="/sitesocial/css/login.css">
+
 </head>
-<body>
+<body> 
 <div class="container mt-4">
     <h2>Acesse sua conta</h2>
     <form action="" method="POST">
@@ -60,6 +61,11 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
         </div>
         <button type="submit" class="btn btn-primary">Entrar</button>
         <a href="../cadastro/cadastro.php" class="btn btn-secondary">Cadastrar</a>
+
+        <div class="mt-2">
+            <a href="../cadastro/recuperar.php">Recuperar Senha</a> 
+        </div>
+
     </form>
 </div>
 </body>

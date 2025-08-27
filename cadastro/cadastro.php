@@ -50,9 +50,6 @@
 </div>
 
 
-<script src="https://jsuites.net/v5/jsuites.js"></script>
-<script src="../js/script.js"></script>
-
 <?php 
     include '../include/footer.php'; 
 ?>
