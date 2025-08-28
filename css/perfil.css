@@ -1,0 +1,136 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #2f2f2f; /* cinza escuro */
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* Caixa central */
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    background-color: #f9f9f9; /* branco claro */
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+/* Título */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #222;
+}
+
+/* Mensagens de sucesso */
+.sucesso {
+    background-color: #d4edda; /* verde claro */
+    color: #155724; /* verde escuro */
+    border: 1px solid #c3e6cb;
+    padding: 12px 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* Mensagens de erro */
+.erro {
+    background-color: #f8d7da; /* vermelho claro */
+    color: #721c24; /* vermelho escuro */
+    border: 1px solid #f5c6cb;
+    padding: 12px 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* Fieldset para separar seções */
+fieldset {
+    border: 1px solid #ccc;
+    padding: 20px 25px;
+    margin-bottom: 25px;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+/* Legend */
+legend {
+    font-weight: bold;
+    padding: 0 10px;
+    color: #444;
+}
+
+/* Labels */
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #555;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Botões */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+/* Botão Atualizar Dados */
+button[name="atualizar_dados"] {
+    background-color: #007bff; /* azul */
+}
+
+button[name="atualizar_dados"]:hover {
+    background-color: #0056b3;
+}
+
+/* Botão Alterar Senha */
+button[name="atualizar_senha"] {
+    background-color: #28a745; /* verde */
+}
+
+button[name="atualizar_senha"]:hover {
+    background-color: #1e7e34;
+}
+
+/* Botão voltar */
+a.btn-voltar {
+    display: inline-block;
+    padding: 8px 15px;
+    margin-top: 15px;
+    background-color: #6c757d; /* cinza */
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+a.btn-voltar:hover {
+    background-color: #5a6268;
+}
