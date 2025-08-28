@@ -40,6 +40,8 @@ $result_postagens = $conn->query($sql_postagens);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel</title>
+    <!-- Inclui o arquivo CSS externo -->
+    <link rel="stylesheet" href="../css/painel.css">
     <!-- Inclui o arquivo JS externo -->
     <script src="../js/painel.js"></script>
 </head>
@@ -54,6 +56,12 @@ $result_postagens = $conn->query($sql_postagens);
     <!-- Botão Nova Postagem -->
     <form action="posts.php" method="GET" style="display: inline;">
         <button type="submit">Nova Postagem</button>
+    </form>
+
+    <!-- Botão Perfil -->
+    <form action="../perfil/perfil.php" method="GET" class="perfil-form">
+        <input type="hidden" name="id" value="<?php echo $usuario_logado; ?>">
+        <button type="submit" class="btn-perfil">👤</button>
     </form>
     
     <h2>Postagens Recentes</h2>
