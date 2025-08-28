@@ -25,7 +25,7 @@ function emailExiste($conn, $email, $usuario_id) {
     $sql = "SELECT id FROM usuarios WHERE email = ? AND id != ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("si", $email, $usuario_id);
-    $stmt->execute();
+    $stmt->execute();    
     $result = $stmt->get_result();
     return $result->num_rows > 0;
 }
@@ -52,7 +52,7 @@ function validarNomePessoal($nome) {
     return "";
 }
 
-// Validação nome de usuário: permite letras, números, < > _ ; não permite ^ ~ / ? ! @ # $ % & * + ) ( = " ' . ,
+// Validação nome de usuário: letras, números, < > _ ; mínimo 3 caracteres
 function validarNomeUsuario($usuario_nome) {
     if (strlen($usuario_nome) < 3) {
         return "Nome de usuário deve ter pelo menos 3 caracteres.";
@@ -64,13 +64,13 @@ function validarNomeUsuario($usuario_nome) {
     return "";
 }
 
-// Atualizar nome pessoal, nome de usuário e/ou email
+// Atualizar dados (nome pessoal, nome de usuário, email)
 if (isset($_POST['atualizar_dados'])) {
     $novo_nome = trim($_POST['nome'] ?? '');
     $novo_usuario = trim($_POST['usuario'] ?? '');
     $novo_email = trim($_POST['email'] ?? '');
 
-    // Validações
+    // Inicializa variável de erro
     $erro = "";
 
     if ($novo_nome !== '') {
@@ -132,7 +132,7 @@ if (isset($_POST['atualizar_dados'])) {
         }
 
         if (!isset($_SESSION['erro'])) {
-            // Monta query dinamicamente conforme o que será atualizado
+            // Constrói a query dinamicamente
             $campos = [];
             $params = [];
             $tipos = "";
@@ -175,7 +175,7 @@ if (isset($_POST['atualizar_dados'])) {
     }
 }
 
-// Atualizar senha (texto simples, sem limite mínimo)
+// Atualizar senha
 if (isset($_POST['atualizar_senha'])) {
     $senha_atual = $_POST['senha_atual'] ?? '';
     $nova_senha = $_POST['nova_senha'] ?? '';
@@ -207,11 +207,13 @@ if (isset($_POST['atualizar_senha'])) {
 <head>
     <meta charset="UTF-8">
     <title>Perfil do Usuário</title>
-    <link rel="stylesheet" href="../css/painel.css">
-    <script src="../js/perfil.js"></script>
+    <link rel="stylesheet" href="../css/perfil.css">
+    <script src="../js/perfil.js" defer></script>
 </head>
 <body>
-    <h1>Meu Perfil</h1>
+    <div class="container">
+        <h1>Meu Perfil</h1>
+
 
     <?php if (isset($_SESSION['sucesso'])): ?>
         <p class="sucesso"><?php echo htmlspecialchars($_SESSION['sucesso']); unset($_SESSION['sucesso']); ?></p>
@@ -238,12 +240,11 @@ if (isset($_POST['atualizar_senha'])) {
     </fieldset>
     <fieldset>
         <legend>Atualizar Email</legend>
-        <form method="POST" novalidate id="formAtualizarDados">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($usuario['email']); ?>">
-
-            <button type="submit" name="atualizar_dados">Atualizar Dados</button>
-        </form>
+    <form method="POST" novalidate id="formAtualizarDados" data-email="<?php echo htmlspecialchars($usuario['email']); ?>">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($usuario['email']); ?>">
+        <button type="submit" name="atualizar_dados">Atualizar Dados</button>
+    </form>
     </fieldset>
 
     <fieldset>
@@ -259,7 +260,8 @@ if (isset($_POST['atualizar_senha'])) {
         </form>
     </fieldset>
 
-    <br>
-    <a href="../feed/painel.php">⬅ Voltar ao Painel</a>
+        <br>
+        <a href="../feed/painel.php" class="btn-voltar">⬅ Voltar ao Painel</a>
+    </div>
 </body>
 </html>
