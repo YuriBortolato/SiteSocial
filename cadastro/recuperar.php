@@ -25,7 +25,7 @@ if (isset($_POST['email'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recuperar Senha</title>
-    <link rel="stylesheet" href="../css/login.css"> 
+    <link rel="stylesheet" href="../css/cadastro.css"> 
 </head>
 <body>
 <div class="container mt-4">

@@ -6,6 +6,7 @@
 
 <div class="container mt-4">
     <h2 class="mb-4">Cadastro</h2>
+    <link rel="stylesheet" href="../css/cadastro.css"> 
 
     <?php if (isset($_GET['success'])): ?>
     <div class="alert alert-success" id="successMessage"> 
