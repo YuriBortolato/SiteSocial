@@ -9,7 +9,7 @@ include("../login/protect.php"); // Protege a página
 // ID do usuário logado
 $usuario_logado = $_SESSION['id'] ?? 0;
 
-// Exibe mensagens de sessão (sucesso/erro)
+// Redireciona para login se não estiver logado
 if (isset($_SESSION['sucesso'])) {
     echo "<div style='color: green;'>" . $_SESSION['sucesso'] . "</div>";
     unset($_SESSION['sucesso']);
@@ -29,7 +29,7 @@ if (isset($_SESSION['erro'])) {
           </script>";
 }
 
-// Busca todas as postagens
+// Busca postagens
 $sql_postagens = "SELECT p.*, u.nome FROM postagens p JOIN usuarios u ON p.usuario_id = u.id ORDER BY p.data_criacao DESC";
 $result_postagens = $conn->query($sql_postagens);
 ?>
@@ -46,48 +46,49 @@ $result_postagens = $conn->query($sql_postagens);
     <script src="../js/painel.js"></script>
 </head>
 <body>
-    <h1>Painel de Postagens</h1>
+    <div class="container">
+        <header>
+            <form action="../login/index.php" method="get" style="margin:0;">
+                <button type="submit" class="logout-button">Sair</button>
+            </form>
 
-    <!-- Botão Sair -->
-    <form action="../login/index.php" method="get" style="display: inline;">
-        <button type="submit" class="logout-button">Sair</button>
-    </form>
+            <h1>Painel de Postagens</h1>
 
-    <!-- Botão Nova Postagem -->
-    <form action="posts.php" method="GET" style="display: inline;">
-        <button type="submit">Nova Postagem</button>
-    </form>
-
-    <!-- Botão Perfil -->
-    <form action="../perfil/perfil.php" method="GET" class="perfil-form">
-        <input type="hidden" name="id" value="<?php echo $usuario_logado; ?>">
-        <button type="submit" class="btn-perfil">👤</button>
-    </form>
-    
-    <h2>Postagens Recentes</h2>
-
-    <?php while ($postagem = $result_postagens->fetch_assoc()): ?>
-        <div id="post-<?php echo $postagem['id']; ?>" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
-            <h3><?php echo htmlspecialchars($postagem['nome']); ?></h3>
-            <p><?php echo nl2br(htmlspecialchars($postagem['conteudo'])); ?></p>
-
-            <?php if ($postagem['imagem']): ?>
-                <img src="../uploads/<?php echo htmlspecialchars($postagem['imagem']); ?>" alt="Imagem da postagem" style="max-width: 100%;">
-            <?php endif; ?>
-
-            <p><em><?php echo $postagem['data_criacao']; ?></em></p>
-
-            <?php if ($postagem['usuario_id'] == $usuario_logado): ?>
-                <!-- Botão editar -->
-                <form action="editar.php" method="GET" style="display:inline;">
-                    <input type="hidden" name="id" value="<?php echo $postagem['id']; ?>">
-                    <button type="submit">Editar</button>
+            <div class="header-buttons">
+                <form action="posts.php" method="GET" style="margin:0;">
+                    <button type="submit" class="nova-postagem-button" title="Nova Postagem">+</button>
                 </form>
 
-                <!-- Botão excluir via JS -->
-                <button onclick="excluirPost(<?php echo $postagem['id']; ?>)">Excluir</button>
-            <?php endif; ?>
-        </div>
-    <?php endwhile; ?>
+                <form action="../perfil/perfil.php" method="GET" class="perfil-form" style="margin:0;">
+                    <input type="hidden" name="id" value="<?php echo $usuario_logado; ?>">
+                    <button type="submit" class="btn-perfil" title="Perfil">👤</button>
+                </form>
+            </div>
+        </header>
+
+        <h2>Postagens Recentes</h2>
+
+        <?php while ($postagem = $result_postagens->fetch_assoc()): ?>
+            <div id="post-<?php echo $postagem['id']; ?>" class="postagem">
+                <h3><?php echo htmlspecialchars($postagem['nome']); ?></h3>
+                <p><?php echo nl2br(htmlspecialchars($postagem['conteudo'])); ?></p>
+
+                <?php if ($postagem['imagem']): ?>
+                    <img src="../uploads/<?php echo htmlspecialchars($postagem['imagem']); ?>" alt="Imagem da postagem">
+                <?php endif; ?>
+
+                <p><em><?php echo $postagem['data_criacao']; ?></em></p>
+
+                <?php if ($postagem['usuario_id'] == $usuario_logado): ?>
+                    <form action="editar.php" method="GET" style="display:inline;">
+                        <input type="hidden" name="id" value="<?php echo $postagem['id']; ?>">
+                        <button type="submit">Editar</button>
+                    </form>
+
+                    <button onclick="excluirPost(<?php echo $postagem['id']; ?>)">Excluir</button>
+                <?php endif; ?>
+            </div>
+        <?php endwhile; ?>
+    </div>
 </body>
 </html>
