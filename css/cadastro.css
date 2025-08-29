@@ -127,7 +127,7 @@ body {
 .error-box {
     max-width: 600px;
     margin: 20px auto;
-    background-color: #1E88E5; /* Azul vibrante */
+    background-color: #1E88E5; 
     color: #fff;
     padding: 16px 20px;
     border-radius: 6px;
