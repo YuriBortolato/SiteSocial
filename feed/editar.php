@@ -43,21 +43,30 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/editar.css">
     <title>Editar Postagem</title>
 </head>
 <body>
+    <div class="container">
     <h1>Editar Postagem</h1>
 
-    <!-- Mostra a imagem atual -->
-    <?php if ($postagem['imagem']): ?>
-        <img src="../uploads/<?php echo htmlspecialchars($postagem['imagem']); ?>" alt="Imagem da postagem" style="max-width: 300px; margin-bottom: 10px;">
+    <!-- Mensagens de sucesso/erro -->
+    <?php if(!empty($_SESSION['erro'])): ?>
+        <div class="text-danger"><?php echo $_SESSION['erro']; unset($_SESSION['erro']); ?></div>
+    <?php endif; ?>
+    <?php if(!empty($_SESSION['sucesso'])): ?>
+        <div class="text-success"><?php echo $_SESSION['sucesso']; unset($_SESSION['sucesso']); ?></div>
     <?php endif; ?>
 
-    <!-- Formulário para editar apenas o texto/descrição -->
+    <?php if ($postagem['imagem']): ?>
+        <img src="../uploads/<?php echo htmlspecialchars($postagem['imagem']); ?>" alt="Imagem da postagem">
+    <?php endif; ?>
+
     <form action="" method="POST">
-        <textarea name="conteudo" rows="5" cols="50" placeholder="Escreva uma descrição..."><?php echo htmlspecialchars($postagem['conteudo']); ?></textarea><br>
-        <button type="submit">Atualizar</button>
-        <a href="painel.php">Cancelar</a>
+        <textarea name="conteudo" rows="5" placeholder="Escreva uma descrição..."><?php echo htmlspecialchars($postagem['conteudo']); ?></textarea>
+        <button type="submit" class="btn-update">Atualizar</button>
+        <a href="painel.php" class="btn-cancel">Cancelar</a>
     </form>
+</div>
 </body>
 </html>

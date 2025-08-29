@@ -4,69 +4,80 @@ include '../config/db.php';
 
 session_start();
 
-if(isset($_POST['email']) || isset($_POST['senha'])) {
+// inicializa as variáveis de erro
+$email_error = '';
+$senha_error = '';
 
-    if(strlen($_POST['email']) == 0){
-        echo "Preencha seu email";
-    } else if(strlen($_POST['senha']) == 0){
-        echo "Preencha sua senha";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (empty($_POST['email'])) {
+        $email_error = "Preencha seu e-mail";
+    } elseif (empty($_POST['senha'])) {
+        $senha_error = "Preencha sua senha";
     } else {
-        $email = $conn->real_escape_string($_POST['email']); // Protege contra SQL Injection
-        $senha = $_POST['senha']; // Senha em texto puro
+        $email = $conn->real_escape_string($_POST['email']); 
+        $senha = $_POST['senha']; 
 
-        // Busca o usuário pelo email
         $sql_code = "SELECT * FROM usuarios WHERE email ='$email'";
-        $sql_query = $conn->query($sql_code) or die("Falha na execução do código SQL: " . $conn->error);
+        $sql_query = $conn->query($sql_code) or die("Falha no SQL: " . $conn->error);
 
-        if($sql_query->num_rows == 1 ) {
-            $usuario = $sql_query->fetch_assoc(); // pega os dados do usuário
+        if ($sql_query->num_rows == 1) {
+            $usuario = $sql_query->fetch_assoc();
 
-            
-             if($senha === $usuario['senha']) { // Verifica a senha
-
+            if ($senha === $usuario['senha']) {
                 $_SESSION['id'] = $usuario['id'];
                 $_SESSION['nome'] = $usuario['nome'];
 
-                header("Location: ../feed/painel.php"); // Redireciona para a página do feed
+                header("Location: ../feed/painel.php"); 
                 exit;
             } else {
-                echo "<div class='text-danger'>Senha incorreta!</div>";
+                $senha_error = "Senha incorreta!";
             }
         } else {
-            echo "<div class='text-danger'>E-mail não encontrado!</div>";
+            $email_error = "E-mail não encontrado!";
         }
     }
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/sitesocial/css/login.css">
-
+    <link rel="stylesheet" href="../css/login.css">
 </head>
 <body> 
-<div class="container mt-4">
+<div class="login-container">
     <h2>Acesse sua conta</h2>
+
     <form action="" method="POST">
-        <div class="mb-3">
-            <label for="email" class="form-label">E-mail</label>
-            <input type="email" name="email" id="email" class="form-control" placeholder="Digite seu e-mail" required>
-        </div>
-        <div class="mb-3">
-            <label for="senha" class="form-label">Senha</label>
-            <input type="password" name="senha" id="senha" class="form-control" placeholder="Digite sua senha" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Entrar</button>
-        <a href="../cadastro/cadastro.php" class="btn btn-secondary">Cadastrar</a>
 
-        <div class="mt-2">
-            <a href="../cadastro/recuperar.php">Recuperar Senha</a> 
+        <div class="input-group">
+            <label for="email">E-mail:</label>
+            <input type="email" name="email" id="email" placeholder="Digite seu e-mail" 
+                value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>" required />
+            <?php if ($email_error): ?>
+                <div class="text-danger"><?= $email_error ?></div>
+            <?php endif; ?>
         </div>
 
+        <div class="input-group">
+            <label for="senha">Senha:</label>
+            <input type="password" name="senha" id="senha" placeholder="Digite sua senha" required />
+            <?php if ($senha_error): ?>
+                <div class="text-danger"><?= $senha_error ?></div>
+            <?php endif; ?>
+        </div>
+
+        <input type="submit" value="Entrar" />
     </form>
+
+    <button onclick="window.location.href='../cadastro/cadastro.php'" type="button" class="btn-cadastrar">Cadastrar</button>
+
+    <div class="recuperar-senha">
+        <a href="../cadastro/recuperar.php">Recuperar Senha</a>
+    </div>
 </div>
 </body>
 </html>
