@@ -77,7 +77,7 @@ $result_postagens = $conn->query($sql_postagens);
                     <img src="../uploads/<?php echo htmlspecialchars($postagem['imagem']); ?>" alt="Imagem da postagem">
                 <?php endif; ?>
 
-                <p><em><?php echo $postagem['data_criacao']; ?></em></p>
+                <p><em class="data-postagem"><?php echo $postagem['data_criacao']; ?></em></p>
 
                 <?php if ($postagem['usuario_id'] == $usuario_logado): ?>
                     <form action="editar.php" method="GET" style="display:inline;">

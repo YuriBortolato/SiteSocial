@@ -1,4 +1,3 @@
-/* Reset básico */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,21 +5,20 @@
     font-family: Arial, sans-serif;
 }
 
-/* Corpo da página com fundo escuro */
 body {
     background-color: #2f2f2f;
     color: #000;
-    display: flex;
-    justify-content: center;
     padding: 20px 0;
     min-height: 100vh;
+    /* display: block e justify-content: center não são necessários aqui */
 }
 
-/* Container central que limita a largura e centraliza */
+/* Container principal */
 .container {
     background-color: #f9f9f9;
     width: 100%;
-    max-width: 600px; /* largura parecida com feed do Twitter */
+    max-width: 700px; /* largura parecida com feed do Twitter */
+    margin: 0 auto;
     padding: 0 15px 40px 15px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -39,7 +37,6 @@ header {
     z-index: 10;
 }
 
-/* Título centralizado */
 header h1 {
     flex-grow: 1;
     text-align: center;
@@ -55,16 +52,30 @@ header h1 {
     gap: 10px;
 }
 
+/* Botões - estilos gerais e específicos */
+
+/* Botões gerais */
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1.2rem;
+    font-size: 1rem;
+    min-width: 80px;
+    white-space: nowrap; /* evita quebra de texto */
+    transition: background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Botão sair vermelho */
 .logout-button {
     background-color: #e02424;
-    border: none;
     color: white;
-    padding: 8px 14px;
-    border-radius: 20px;
     font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    padding: 0.5rem 1rem;
+    min-width: 90px;
 }
 .logout-button:hover {
     background-color: #b71c1c;
@@ -73,38 +84,73 @@ header h1 {
 /* Botão nova postagem (ícone +) */
 .nova-postagem-button {
     background-color: transparent;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
     color: #007bff;
-    padding: 6px 10px;
+    font-size: 1.5rem;
+    padding: 0.3rem 0.6rem;
     border-radius: 50%;
-    transition: background-color 0.3s;
+    min-width: 40px;
+    min-height: 40px;
+    line-height: 1;
 }
 .nova-postagem-button:hover {
     background-color: #e6f0ff;
 }
 
-/* Botão perfil já tem .btn-perfil, só ajustar margens */
+/* Botão perfil circular */
 .btn-perfil {
     width: 40px;
     height: 40px;
-    border-radius: 50%;   /* Torna o botão circular */
-    border: none;
     background-color: #007bff;
     color: white;
-    font-size: 18px;
-    cursor: pointer;
-    transition: 0.3s;
-    display: flex;
+    font-size: 1.1rem;
+    border-radius: 50%;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    padding: 0;
+    min-width: 40px;
+    min-height: 40px;
+    transition: background-color 0.3s;
 }
 .btn-perfil:hover {
     background-color: #0056b3;
 }
 
-/* Título secundário */
+/* Botões editar e excluir nas postagens */
+.postagem button {
+    background-color: #e02424;
+    color: white;
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+    min-width: 80px;
+    margin-right: 8px;
+    margin-top: 5px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.postagem button:hover {
+    background-color: #b71c1c;
+}
+
+/* Botões dentro de formulários nas postagens (ex: editar) */
+.postagem form button {
+    background-color: #007bff;
+}
+.postagem form button:hover {
+    background-color: #0056b3;
+}
+
+/* Container flexível para botões nas postagens */
+.postagem .botoes-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+/* Títulos */
 h2 {
     margin: 20px 0 10px 0;
     color: #333;
@@ -120,58 +166,81 @@ h2 {
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-/* Nome do usuário */
 .postagem h3 {
     margin-bottom: 8px;
     color: #1a1a1a;
 }
 
-/* Conteúdo do post */
 .postagem p {
     margin-bottom: 10px;
     color: #333;
     white-space: pre-wrap;
 }
 
-/* Imagem da postagem */
+/* Imagem da postagem - responsiva */
 .postagem img {
-    max-width: 100%;
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+    object-fit: contain;
+    background-color: #f0f0f0;
     border-radius: 6px;
     margin-bottom: 10px;
+    display: block;
 }
 
 /* Data da postagem */
-.postagem em {
+.postagem em,
+.data-postagem {
     font-size: 0.85rem;
-    color: #666;
+    color: #636363;
 }
 
-/* Botões editar e excluir */
-.postagem form,
-.postagem button {
-    margin-right: 8px;
-    margin-top: 5px;
+.data-postagem {
+    display: block;
+    text-align: right;
+    margin-bottom: 5px;
 }
 
-.postagem button {
-    background-color: #e02424;
-    border: none;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s;
-}
+/* Media Queries para responsividade*/
+@media (max-width: 480px) {
+    /* Botões gerais */
+    button {
+        font-size: 0.85rem;
+        padding: 0.35rem 0.9rem;
+        min-width: 60px;
+    }
 
-.postagem button:hover {
-    background-color: #b71c1c;
-}
+    /* Botão sair */
+    .logout-button {
+        padding: 0.4rem 0.8rem;
+        min-width: 70px;
+        font-size: 0.85rem;
+    }
 
-.postagem form button {
-    background-color: #007bff;
-}
+    /* Botão nova postagem */
+    .nova-postagem-button {
+        font-size: 1.2rem;
+        min-width: 36px;
+        min-height: 36px;
+        padding: 0.25rem 0.5rem;
+    }
 
-.postagem form button:hover {
-    background-color: #0056b3;
+    /* Botão perfil */
+    .btn-perfil {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+        min-width: 36px;
+        min-height: 36px;
+    }
+
+    /* Botões nas postagens */
+    .postagem button {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.8rem;
+        min-width: 60px;
+        margin-right: 6px;
+        margin-top: 4px;
+    }
 }
