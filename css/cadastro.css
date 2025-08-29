@@ -1,0 +1,177 @@
+/* Reset básico */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Caixa central para o formulário de cadastro */
+.cadastro-container {
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    width: 90%;
+    max-width: 450px;
+}
+
+/* Título */
+.cadastro-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #222;
+}
+
+/* Formulário */
+.cadastro-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Container para cada input e sua mensagem */
+.input-group {
+    position: relative;
+    margin-bottom: 25px; 
+}
+
+/* Labels */
+.cadastro-container label {
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #555;
+    display: block;
+}
+
+/* Inputs */
+.cadastro-container input[type="text"],
+.cadastro-container input[type="email"],
+.cadastro-container input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.cadastro-container input[type="text"]:focus,
+.cadastro-container input[type="email"]:focus,
+.cadastro-container input[type="password"]:focus {
+    border-color: #4caf50;
+    outline: none;
+}
+
+/* Mensagens de erro */
+.text-danger {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px; 
+    margin-bottom: 0;
+    text-align: left;
+    position: relative;
+    left: 0;
+}
+
+/* Container dos botões */
+.botoes-container {
+    display: flex;
+    justify-content: space-between; 
+    gap: 15px; 
+    margin-top: 15px;
+} 
+
+/* Botão Cadastrar */
+.btn-cadastrar {
+    flex: 1; /* ocupa metade do espaço disponível */
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 14px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btn-cadastrar:hover {
+    background-color: #45a049;
+}
+
+/* Botão Cancelar */
+.btn-cancelar {
+    flex: 1; /* Permite que o botão ocupe o espaço disponível */
+    margin-left: 10px; /* Espaço entre os botões */
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 14px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btn-cancelar:hover {
+    background-color: #b02a37;
+}
+
+/* Caixa de erro estilizada */
+.error-box {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #1E88E5; /* Azul vibrante */
+    color: #fff;
+    padding: 16px 20px;
+    border-radius: 6px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    word-wrap: break-word;
+    font-size: 1rem;
+}
+
+.error-box p {
+    margin: 0 0 8px 0;
+    font-weight: 600;
+}
+
+.error-box code {
+    display: block;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    overflow-x: auto;
+}
+
+/* Mensagem de sucesso */
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 12px 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+    .botoes-container {
+        flex-direction: column;
+    }
+    .btn-cadastrar,
+    .btn-cancelar {
+        flex: none;
+        width: 100%;
+        margin-left: 0;
+    }
+}
