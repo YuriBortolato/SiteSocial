@@ -48,33 +48,78 @@ textarea:focus {
     outline: none;
 }
 
+/* Esconde o input padrão de arquivo */
 input[type="file"] {
+    display: none;
+}
+
+/* Área de upload customizada */
+.file-upload {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     margin-bottom: 15px;
 }
-
-/* Mensagens de erro e sucesso */
-.text-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    padding: 12px 15px;
+/* Botão customizado para upload */
+.btn-file {
+    background-color: #6c757d;
+    color: white;
+    padding: 6px 12px; 
+    font-size: 0.9rem;
     border-radius: 5px;
-    margin-bottom: 20px;
-    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.text-success {
+.btn-file:hover {
+    background-color: #5a6268;
+}
+
+#file-chosen {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Mensagem de erro */
+.error-box {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #f8d7da; /* Cor de fundo vermelho claro */
+    color: #721c24; /* Cor do texto vermelho escuro */
+    padding: 16px 20px;
+    border-radius: 6px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    font-size: 1rem; 
+    text-align: center;
+    font-weight: 600; 
+}
+
+/* Mensagem de sucesso */
+.alert-success {
+    max-width: 600px;
+    margin: 20px auto;
     background-color: #d4edda;
     color: #155724;
     border: 1px solid #c3e6cb;
-    padding: 12px 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    font-size: 1rem;
     text-align: center;
+    font-weight: 600;
+}
+
+
+/* Animação de fade-in */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Botões */
-button, .btn-link {
+button, .btn-primar, .btn-link, .btn-danger {
     padding: 12px;
     font-size: 1rem;
     border: none;
@@ -97,7 +142,7 @@ button, .btn-link {
     background-color: #5a6268;
 }
 
-/* Botão Sair / Cancelar */
+/* Botão Sair */
 .btn-danger {
     background-color: #dc3545;
     color: white;
@@ -116,7 +161,8 @@ button, .btn-link {
     textarea,
     input[type="file"],
     button,
-    .btn-link {
+    .btn-link,
+    .btn-file {
         font-size: 1rem;
         padding: 10px;
     }
